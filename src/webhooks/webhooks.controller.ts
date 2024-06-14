@@ -17,12 +17,14 @@ export class WebhooksController {
   async onTemperatureReceived(@Body() body: WeatherData, @Req() req: Request){
 
     if(!req.headers.authorization){
+      console.log("Unauthorized.")
       throw new UnauthorizedException();
     }
 
     const webhookSecretBrcyptHash = this.config.get('WEBHOOK_SECRET_HASH');
 
-    if(!(await bcrypt.compare(webhookSecretBrcyptHash, req.headers.authorization))){
+    if(!(await bcrypt.compare(req.headers.authorization, webhookSecretBrcyptHash))){
+      console.log("Hash wrong.")
       return false;
     }
 
