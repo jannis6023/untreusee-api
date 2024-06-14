@@ -15,7 +15,6 @@ export class WebhooksController {
 
   @Post('ttn')
   async onTemperatureReceived(@Body() body: WeatherData, @Req() req: Request){
-    console.log("Webhook called!")
 
     if(!req.headers.authorization){
       throw new UnauthorizedException();
@@ -26,6 +25,8 @@ export class WebhooksController {
     if(!(await bcrypt.compare(webhookSecretBrcyptHash, req.headers.authorization))){
       return false;
     }
+
+    console.log("Webhook called!", body.uplink_message.decoded_payload)
 
     await this.prisma.temperature.create({
       data: {
