@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator prismaClassGenerator {
+  provider               = "prisma-class-generator"
+  output                 = "../src/_gen/prisma"
+  useSwagger             = true
+  dryRun                 = false
+  separateRelationFields = true
+}
+
+// Water and Air Temperature API
+model Sensor {
+  id           String        @id @default(uuid())
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  temperatures Temperature[]
+}
+
+model Temperature {
+  timestamp Int
+  sensor    Sensor @relation(fields: [sensorId], references: [id])
+  sensorId  String
+  value     Float
+
+  @@id([sensorId, timestamp])
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
