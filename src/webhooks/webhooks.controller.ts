@@ -15,6 +15,8 @@ export class WebhooksController {
 
   @Post('ttn')
   async onTemperatureReceived(@Body() body: WeatherData, @Req() req: Request){
+    console.log("Webhook called!")
+
     if(!req.headers.authorization){
       throw new UnauthorizedException();
     }
