@@ -20,8 +20,8 @@ model Sensor {
 }
 
 model Temperature {
-  timestamp BigInt
-  sensor    Sensor @relation(fields: [sensorId], references: [id])
+  timestamp DateTime @default(now())
+  sensor    Sensor   @relation(fields: [sensorId], references: [id])
   sensorId  String
   value     Float
 

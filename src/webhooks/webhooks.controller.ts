@@ -32,7 +32,6 @@ export class WebhooksController {
 
     await this.prisma.temperature.create({
       data: {
-        timestamp: new Date().getTime(),
         sensor: {
           connect: {
             id: 'red'
@@ -44,7 +43,6 @@ export class WebhooksController {
 
     await this.prisma.temperature.create({
       data: {
-        timestamp: new Date().getTime(),
         sensor: {
           connect: {
             id: 'black'
@@ -56,7 +54,6 @@ export class WebhooksController {
 
     await this.prisma.temperature.create({
       data: {
-        timestamp: new Date().getTime(),
         sensor: {
           connect: {
             id: 'white'

@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class Temperature {
-  @ApiProperty({ type: BigInt })
-  timestamp: BigInt;
+  @ApiProperty({ type: Date })
+  timestamp: Date;
 
   @ApiProperty({ type: String })
   sensorId: string;
