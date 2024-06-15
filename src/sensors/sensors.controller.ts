@@ -9,7 +9,16 @@ export class SensorsController {
 
   @Get()
   getSensors(){
-    return this.prisma.sensor.findMany();
+    return this.prisma.sensor.findMany({
+      include: {
+        temperatures: {
+          take: 1,
+          orderBy: {
+            timestamp: "desc"
+          }
+        }
+      }
+    });
   }
 
   @Get(":id")
